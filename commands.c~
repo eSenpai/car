@@ -1,0 +1,37 @@
+#include <avr/io.h>
+#include <util/delay.h>
+#include "stdio.h"
+#include "stdint.h"
+#include "commands.h"
+
+#define DDR   DDRC
+#define PORT  PORTC
+
+#define left  PINC1
+#define right PINC2
+#define fw    PINC3  //forwards
+#define bw    PINC4  //backwards
+
+void cm_init(void){
+	DDR |= 1 << left;
+    DDR |= 1 << right;
+	DDR |= 1 << fw;
+    DDR |= 1 << bw;
+}
+
+void cm_right(void){
+	PORT |= 1 << right;
+	PORT &= ~ 1 << left;
+}
+
+void cm_left(void){
+	PORT |= 1 << left;
+	PORT &= ~ 1 << right;
+}
+
+void cm_reset(void){
+	PORT &= ~ 1 << right;
+	PORT &= ~ 1 << left;
+	PORT &= ~ 1 << fw;
+	PORT &= ~ 1 << bw;
+}

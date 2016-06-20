@@ -1,0 +1,42 @@
+#include <avr/io.h>
+#include <util/delay.h>
+#include "stdio.h"
+#include "stdint.h"
+#include "commands.h"
+
+void turn_around(void){
+	PORTC |= 1 << PINC2;
+	PORTC &= ~ 1 << PINC1;
+	PORTC |= 1 << PINC4;
+	PORTC &= ~ 1 << PINC3;
+}
+
+int main(void){
+	cm_init();
+    while(1){
+		cm_right();
+		_delay_ms(500);
+		cm_reset();
+		_delay_ms(500);
+		cm_left();
+		_delay_ms(500);
+		cm_reset();
+		_delay_ms(500);
+
+		//PORTC |= 1 << PINC3;
+		//PORTC &= ~ 1 << PINC4;
+		//_delay_ms(10000);
+		//PORTC |= 1 << PINC1;
+		//PORTC &= ~ 1 << PINC2;
+		/*
+		_delay_ms(1000);
+		PORTC |= 1 << PINC1;
+		_delay_ms(1000);
+		PORTC &= ~ 1 << PINC1;
+		_delay_ms(1000);
+		PORTC |= 1 << PINC2;
+		_delay_ms(1000);
+		PORTC &= ~ 1 << PINC2;
+		*/
+    }
+}
